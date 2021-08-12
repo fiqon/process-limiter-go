@@ -5,6 +5,7 @@ import (
 	"sync"
 )
 
+// Limiter holods information for controler
 type Limiter struct {
 	limiter chan int
 	group   sync.WaitGroup
