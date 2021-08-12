@@ -5,13 +5,13 @@ import (
 	"sync"
 )
 
-// Limiter holods information for controler
+// Limiter holds information for controler
 type Limiter struct {
 	limiter chan int
 	group   sync.WaitGroup
 }
 
-//New creates a new controler with the specified number of resources
+//New creates a controler with the specified number of resources
 func New(max int) (l *Limiter) {
 	l = new(Limiter)
 	l.limiter = make(chan int, max)
@@ -23,7 +23,7 @@ func New(max int) (l *Limiter) {
 	return
 }
 
-// Execute consumes one resource to run the function, notes that f must be a function otherwise it panics
+// Execute consumes one resource to run the function, f must be a function and ini must have same arguments of f (types and amount) otherwise it panics
 func (l *Limiter) Execute(f interface{}, in ...interface{}) {
 	l.group.Add(1)
 	<-l.limiter
@@ -43,7 +43,7 @@ func (l *Limiter) Execute(f interface{}, in ...interface{}) {
 	}()
 }
 
-// Wait waits for all processes to finish and release resource
+// Wait waits for all processes to finish to continue
 func (l *Limiter) Wait() {
 	l.group.Wait()
 }
