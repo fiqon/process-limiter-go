@@ -29,6 +29,11 @@ func (l *Limiter) Execute(f interface{}, in ...interface{}) {
 	<-l.limiter
 
 	go func() {
+		defer func() {
+			l.limiter <- 1
+			l.group.Done()
+		}()
+
 		fun := reflect.ValueOf(f)
 		args := make([]reflect.Value, len(in))
 
@@ -37,9 +42,6 @@ func (l *Limiter) Execute(f interface{}, in ...interface{}) {
 		}
 
 		fun.Call(args)
-
-		l.limiter <- 1
-		l.group.Done()
 	}()
 }
 
