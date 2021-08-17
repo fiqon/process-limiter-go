@@ -1,4 +1,9 @@
-//Package limiter is a package that controls max numbers of processes running under the same controler at same time.
+// Copyright (c) 2021 GrandX
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+// Author: MathSO
+
+//Package limiter controls max numbers of processes running under the same controler at same time.
 package limiter
 
 import (
