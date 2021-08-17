@@ -1,3 +1,4 @@
+//Package limiter is a package that controls max numbers of processes running under the same controler at same time.
 package limiter
 
 import (
